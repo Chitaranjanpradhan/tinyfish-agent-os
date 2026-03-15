@@ -292,6 +292,12 @@ function renderTravel(results) {
   const container = document.getElementById("resultArea");
   container.style.display = "block";
 
+  // Debug: Log what each site returned
+  results.forEach(r => {
+    const count = r.data?.flights?.length || 0;
+    addLog(`[${r.site}] returned ${count} flights`, count > 0 ? "complete" : "error");
+  });
+
   const raw = results.flatMap(r => (r.data?.flights || []).map(f => ({ ...f, source: r.site })));
 
   // Normalize price — add ₹ if missing
@@ -414,7 +420,8 @@ Otherwise proceed to payment (DO NOT pay). Capture current URL. Return JSON: {"s
       addLog(`💳 Total: ${result.total_price}`, "complete");
       
       let paymentUrl = result.payment_url;
-      if (!paymentUrl && result.booking_reference) {
+      // Always use correct payment URL format for each site
+      if (result.booking_reference) {
         if (flight.source === "MakeMyTrip") {
           paymentUrl = `https://payments.makemytrip.com/checkout/?id=${result.booking_reference}&region=in`;
         } else if (flight.source === "Goibibo") {
@@ -423,8 +430,10 @@ Otherwise proceed to payment (DO NOT pay). Capture current URL. Return JSON: {"s
           paymentUrl = `https://www.cleartrip.com/payment/${result.booking_reference}`;
         } else if (flight.source === "EaseMyTrip") {
           paymentUrl = `https://www.easemytrip.com/payment/checkout?bookingId=${result.booking_reference}`;
+        } else if (result.payment_url) {
+          // ixigo uses session URLs - use what API returned
+          paymentUrl = result.payment_url;
         }
-        // ixigo uses session URLs - must capture from result.payment_url
       }
       
       if (paymentUrl) {
