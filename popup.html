@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TinyFish Agent OS</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { width: 420px; min-height: 540px; background: #030712; color: #e2e8f0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #0d1628; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(135deg,#06b6d4,#8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .logo-name { font-weight: 800; font-size: 13px; }
+    .logo-sub { font-size: 9px; color: #334155; text-transform: uppercase; letter-spacing: 0.1em; }
+    .current-url { font-size: 10px; color: #1e293b; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .agents-row { display: flex; gap: 5px; padding: 10px 14px; overflow-x: auto; border-bottom: 1px solid #0d1628; }
+    .agents-row::-webkit-scrollbar { height: 2px; }
+    .agent-btn { flex-shrink: 0; padding: 5px 12px; border-radius: 20px; border: 1px solid #1e293b; background: transparent; color: #475569; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+    .form-area { padding: 12px 14px 8px; }
+    .field { margin-bottom: 9px; }
+    label { display: block; font-size: 9px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+    input, textarea { width: 100%; background: #06080f; border: 1px solid #0d1628; border-radius: 7px; padding: 7px 10px; font-size: 12px; color: #94a3b8; outline: none; font-family: 'Courier New', monospace; transition: border-color 0.2s; }
+    input:focus, textarea:focus { border-color: #f59e0b; }
+    textarea { resize: vertical; min-height: 55px; }
+    .session-badge { padding: 6px 12px; border-radius: 6px; margin: 0 14px 8px; font-size: 11px; display: flex; align-items: center; gap: 6px; }
+    .badge-ok { background: #10b98110; border: 1px solid #10b98133; color: #10b981; }
+    .badge-warn { background: #f59e0b10; border: 1px solid #f59e0b33; color: #f59e0b; }
+    .sdot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .run-wrap { padding: 0 14px 10px; }
+    #runBtn { width: 100%; padding: 11px; border-radius: 8px; border: none; color: #000; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.18s; background: #3b82f6; }
+    #runBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+    #logArea { margin: 0 14px 8px; background: #020408; border: 1px solid #0d1628; border-radius: 8px; padding: 8px 10px; height: 150px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 10px; line-height: 1.8; }
+    .l-empty { color: #1e293b; } .l-nav { color: #06b6d4; } .l-action { color: #f59e0b; } .l-complete { color: #10b981; } .l-error { color: #f87171; }
+    #resultArea { margin: 0 14px 8px; background: #06080f; border: 1px solid #0d1628; border-radius: 8px; padding: 10px; max-height: 220px; overflow-y: auto; display: none; }
+    .flight-row { background: #0a0f1c; border: 1px solid #1e293b; border-radius: 7px; padding: 9px 11px; margin-bottom: 5px; cursor: pointer; transition: border-color 0.15s; }
+    .flight-row.sel { border-color: #3b82f6; background: #3b82f610; }
+    .fr-top { display: flex; justify-content: space-between; align-items: center; }
+    .fr-airline { font-size: 12px; font-weight: 700; color: #cbd5e1; }
+    .fr-price { font-size: 14px; font-weight: 800; color: #3b82f6; }
+    .fr-meta { font-size: 10px; color: #475569; margin-top: 2px; }
+    #bookBtn { width: calc(100% - 28px); margin: 0 14px 8px; padding: 9px; border-radius: 7px; border: none; background: linear-gradient(135deg,#3b82f6,#3b82f6bb); color: #000; font-size: 12px; font-weight: 800; cursor: pointer; display: none; }
+    .job-row { background: #0a0f1c; border: 1px solid #1e293b; border-radius: 7px; padding: 8px 10px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+    .job-title { font-size: 11px; font-weight: 600; color: #cbd5e1; }
+    .job-meta { font-size: 9px; color: #334155; margin-top: 2px; }
+    .statusbar { display: flex; align-items: center; gap: 8px; padding: 7px 14px; border-top: 1px solid #0d1628; font-size: 10px; color: #334155; }
+    .sdot-anim { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: p 2s infinite; }
+    @keyframes p { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">🐟</div>
+      <div><div class="logo-name">TinyFish Agent OS</div><div class="logo-sub">Web Intelligence Platform</div></div>
+    </div>
+    <div class="current-url" id="currentUrl"></div>
+  </div>
+  <div class="agents-row" id="agentTabs"></div>
+  <div class="form-area" id="formArea"></div>
+  
+  <div class="run-wrap"><button id="runBtn">▶ Launch Agent</button></div>
+  <div id="logArea"><span class="l-empty">// Agent standing by...</span></div>
+  <div id="resultArea"></div>
+  <button id="bookBtn">🎫 Book Selected Flight</button>
+  <div class="statusbar">
+    <div class="sdot-anim"></div>
+    <span id="statusText">Ready</span>
+    <div style="flex:1"></div>
+    <span style="color:#1e293b">TinyFish v3</span>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
