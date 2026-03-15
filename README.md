@@ -361,9 +361,9 @@ MIT License - see [LICENSE](LICENSE)
 
 ## 📞 Contact
 
-- **Twitter/X**: [@your_handle](https://twitter.com/your_handle)
-- **Email**: your.email@example.com
-- **Demo**: [Watch on X](YOUR_TWITTER_LINK)
+- **Twitter/X**: https://x.com/devchitaranjan/status/2032398339849990319?s=46
+- **Email**: chitta4pradhan@gmail.com
+- **Demo**: https://drive.google.com/file/d/1cLoCrQtTk9FhIDffcotDZfHJyP0sjNSN/view?usp=sharing
 - **GitHub**: [View Code](https://github.com/YOUR_USERNAME/tinyfish-agent-os)
 
 ---
