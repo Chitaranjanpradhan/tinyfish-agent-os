@@ -98,32 +98,55 @@ The web is designed for humans, not AI. Complex workflows like booking flights, 
 
 ![TinyFish Agent OS Demo](screenshots/demo.png)
 
-### Installation
+### Prerequisites
+- Chrome browser (v120 or higher)
+- TinyFish API key - [Sign up here](https://www.tinyfish.ai)
 
-1. **Clone the repository**
+### Installation Steps
+
+**1. Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/tinyfish-agent-os.git
+git clone https://github.com/Chitaranjanpradhan/tinyfish-agent-os.git
 cd tinyfish-agent-os
 ```
 
-2. **Add your TinyFish API key**
-```bash
-# Create config.js
-echo 'const CONFIG = { TINYFISH_API_KEY: "your-api-key-here" };' > config.js
+**2. Add your TinyFish API key**
+
+Create a file named `config.js` in the root folder:
+```javascript
+const CONFIG = {
+  TINYFISH_API_KEY: "your-api-key-here"
+};
 ```
 
-3. **Load in Chrome**
-- Open `chrome://extensions/`
-- Enable "Developer mode"
-- Click "Load unpacked"
-- Select the folder
+Replace `"your-api-key-here"` with your actual API key from [tinyfish.ai](https://www.tinyfish.ai)
 
-### Get API Key
-Sign up at [tinyfish.ai](https://www.tinyfish.ai) to get your API key and credits.
+**3. Load the extension in Chrome**
+
+- Open Chrome and go to `chrome://extensions/`
+- Enable **"Developer mode"** (toggle in top-right corner)
+- Click **"Load unpacked"**
+- Select the `tinyfish-agent-os` folder
+- The extension icon should appear in your toolbar
+
+**4. Start using the agents**
+
+- Click the TinyFish extension icon to open the sidebar
+- Select an agent (Travel, SDR, Jobs, etc.)
+- Fill in the required fields
+- Click **"▶ Launch Agent"** and watch it work!
+
+### Get Your API Key
+
+1. Visit [https://www.tinyfish.ai](https://www.tinyfish.ai)
+2. Sign up for an account
+3. Navigate to API settings
+4. Copy your API key
+5. Paste it in `config.js`
 
 ---
 
-## 📖 Usage Examples
+## 🎮 Usage Guide
 
 ### Travel Agent
 ```
