@@ -16,7 +16,7 @@ const AGENTS = [
       return [
         { url: `https://www.makemytrip.com/flight/search?itinerary=${cc(f.from)}-${cc(f.to)}-${fd(f.dates)}&tripType=O&paxType=A-1_C-0_I-0&intl=false&cabinClass=E`, label: "MakeMyTrip" },
         { url: `https://www.ixigo.com/search/result/flight?from=${cc(f.from)}&to=${cc(f.to)}&date=${fdi(f.dates)}&adults=1&children=0&infants=0&class=e`, label: "ixigo" },
-        { url: `https://www.goibibo.com/flights/results/?ver=2&s_city=${cc(f.from)}&d_city=${cc(f.to)}&s_date=${fdg(f.dates)}&adults=1&children=0&infants=0&class=e`, label: "Goibibo" },
+        // { url: `https://www.goibibo.com/flights/results/?ver=2&s_city=${cc(f.from)}&d_city=${cc(f.to)}&s_date=${fdg(f.dates)}&adults=1&children=0&infants=0&class=e`, label: "Goibibo" },
       ];
     },
     buildGoal(f, site) {
