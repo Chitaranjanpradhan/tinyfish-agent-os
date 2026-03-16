@@ -20,7 +20,7 @@ const AGENTS = [
       ];
     },
     buildGoal(f, site) {
-      return `You are on ${site.label} showing flights from ${f.from} to ${f.to} on ${f.dates}. Extract all visible flight results with prices in INR. Return ONLY valid JSON: {"site":"${site.label}","flights":[{"airline":"string","flight_no":"string","departure":"string","arrival":"string","duration":"string","stops":0,"price_inr":"string"}],"cheapest_price":"string"}`;
+      return `Extract first 8 visible flights with INR prices. Do NOT scroll, sort, or wait for more results. Return JSON immediately: {"site":"${site.label}","flights":[{"airline":"","flight_no":"","departure":"","arrival":"","duration":"","stops":0,"price_inr":""}],"cheapest_price":""}`;
     },
   },
   {
