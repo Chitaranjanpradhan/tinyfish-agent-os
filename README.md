@@ -21,7 +21,7 @@ The web is designed for humans, not AI. Complex workflows like booking flights, 
 ### 1. ✈️ Travel Agent (Full Automation)
 **Searches, compares, and books flights across multiple platforms**
 
-- **Sites**: MakeMyTrip, ixigo, Goibibo
+- **Sites**: MakeMyTrip, ixigo
 - **Features**:
   - Parallel multi-site search
   - Smart deduplication
@@ -30,7 +30,9 @@ The web is designed for humans, not AI. Complex workflows like booking flights, 
   - Payment link generation
 - **Time saved**: 15-20 minutes per booking
 
-**Demo**: Search Delhi → Mumbai → Get cheapest flight → Auto-book → Receive payment link
+**Demo**: Search Delhi → Jaipur → Get cheapest flight → Auto-book → Receive payment link
+
+**Performance**: 2-3 min search + 10-15 min booking = 12-18 min total
 
 ---
 
@@ -151,12 +153,12 @@ Replace `"your-api-key-here"` with your actual API key from [tinyfish.ai](https:
 ### Travel Agent
 ```
 From: Delhi
-To: Mumbai  
-Date: 2026-04-10
+To: Jaipur  
+Date: 2026-03-20
 Travelers: 1
 
-→ Searches 3 sites in 30 seconds
-→ Shows 13 flights (9 duplicates removed)
+→ Searches 2 sites in 2 minutes
+→ Shows best flights with prices
 → Click "Book" → Enter OTP → Get payment link
 ```
 
