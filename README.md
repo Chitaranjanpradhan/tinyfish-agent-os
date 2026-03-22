@@ -21,7 +21,7 @@ The web is designed for humans, not AI. Complex workflows like booking flights, 
 ### 1. ✈️ Travel Agent (Full Automation)
 **Searches, compares, and books flights across multiple platforms**
 
-- **Sites**: MakeMyTrip, ixigo
+- **Sites**: easymytrip, ixigo
 - **Features**:
   - Parallel multi-site search
   - Smart deduplication
